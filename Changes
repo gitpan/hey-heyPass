@@ -1,0 +1,6 @@
+Revision history for Perl extension hey::heyPass.
+
+1.05  Tue Aug  9 00:57:32 2005
+	- original version; created by h2xs 1.22 with options
+		-AX -n hey::heyPass
+
