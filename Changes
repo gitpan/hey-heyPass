@@ -6,6 +6,4 @@ Revision history for Perl extension Hey::heyPass.
 
 1.06  Tue Aug 16 00:04:34 2005
 	- fixed error on line 35, fixed missing parens around arguments
-
-1.07  Tue Aug 16 00:14:34 2005
-	- changed from hey::heyPass to Hey::heyPass (capitalizing "Hey")
+	- DEPRECATED THIS MODULE, use Hey::heyPass instead (notice capitalized "H")

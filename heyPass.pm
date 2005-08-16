@@ -1,6 +1,14 @@
-package Hey::heyPass;
+#####
+#####
+#####
+##### >>>>> WARNING:  deprecated module -- use Hey::heyPass instead.
+#####
+#####
+#####
 
-our $VERSION = "1.07";
+package hey::heyPass;
+
+our $VERSION = "1.06";
 
 use 5.005;
 use LWP::UserAgent;
@@ -121,53 +129,11 @@ sub urlDecode {
 __END__
 =head1 NAME
 
-Hey::heyPass - Interface with heyPass Centralized Authentication System
-
-=head1 SYNOPSIS
-
-  # To send a user to login:
-  use Hey::heyPass;
-  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
-  $login = $heyPass->beginSession({
-             successUrl => "http://$ENV{HTTP_HOST}/loginSuccess.cgi?sessionId=%s",
-             failureUrl => "http://$ENV{HTTP_HOST}/loginFailure.cgi?sessionId=%s",
-             cancelUrl => "http://$ENV{HTTP_HOST}/loginCancel.cgi?sessionId=%s"
-           });
-  print "Location: $login->{loginUrl}\n\n";
-
-  # To logout the user:
-  use Hey::heyPass;
-  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
-  $heyPass->endSession($sessionId);
-
-  # To retrieve the session data of the user:
-  use Hey::heyPass;
-  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
-  $session = $heyPass->getSession($sessionId);
-  use Data::Dumper;
-  print Dumper($session);
+hey::heyPass - Interface with heyPass Centralized Authentication System
 
 =head1 DESCRIPTION
 
-Documentation: https://heypass.hey.nu/interface/guestdocs/
-
-If you want to have a heyPass siteId/siteKey for your application, please check to see if there is an automated way to do this (not yet at time of writing).  If there still isn't, contact me (Dusty Wilson <cpan-heypass@dusty.hey.nu>) and I will get you started.
-
-=head1 DEPENDENCIES
-
-LWP::UserAgent
-XML::Simple
-Crypt::SSLeay
-
-=head1 THANKS
-
-A big thank you goes out to all of our members at hey.nu Network who have helped us test heyPass throughly.  A special thank you goes to ssba for his testing and early adoption of heyPass in his projects.  And of course, thank you to the authors and contributors of LWP, XML::Simple, Crypt::SSLeay, and all dependent projects for making this module so easy to make.  If it weren't for them, I would have had to actually write real code to have done this.  Thanks!
-
-=head1 SEE ALSO
-
-Documentation: https://heypass.hey.nu/interface/guestdocs/
-
-heyPass Site: https://heypass.hey.nu/ (doubtfully useful in its current state)
+WARNING:  DEPRECATED MODULE!  Use Hey::heyPass instead.
 
 =head1 AUTHOR
 
