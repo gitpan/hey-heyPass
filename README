@@ -1,7 +1,7 @@
-hey/heyPass version 1.05
+Hey/heyPass version 1.05
 ========================
 
-hey::heyPass - Interface with heyPass Centralized Authentication System
+Hey::heyPass - Interface with heyPass Centralized Authentication System
 
 INSTALLATION
 
@@ -15,8 +15,8 @@ To install this module type the following:
 SYNOPSIS
 
   # To send a user to login:
-  use hey::heyPass;
-  $heyPass = hey::heyPass->new($yourSiteId, $yourSiteKey);
+  use Hey::heyPass;
+  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
   $login = $heyPass->beginSession({
              successUrl => "http://$ENV{HTTP_HOST}/loginSuccess.cgi?sessionId=%s",
              failureUrl => "http://$ENV{HTTP_HOST}/loginFailure.cgi?sessionId=%s",
@@ -25,13 +25,13 @@ SYNOPSIS
   print "Location: $login->{loginUrl}\n\n";
 
   # To logout the user:
-  use hey::heyPass;
-  $heyPass = hey::heyPass->new($yourSiteId, $yourSiteKey);
+  use Hey::heyPass;
+  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
   $heyPass->endSession($sessionId);
 
   # To retrieve the session data of the user:
-  use hey::heyPass;
-  $heyPass = hey::heyPass->new($yourSiteId, $yourSiteKey);
+  use Hey::heyPass;
+  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
   $session = $heyPass->getSession($sessionId);
   use Data::Dumper;
   print Dumper($session);

@@ -1,6 +1,6 @@
-package hey::heyPass;
+package Hey::heyPass;
 
-our $VERSION = "1.05";
+our $VERSION = "1.07";
 
 use 5.005;
 use LWP::UserAgent;
@@ -32,7 +32,8 @@ sub request {
   local @contentProcessed;
   for (local $i=0; $i <= $#content; $i++) {
     if (ref($content[$i]) eq "HASH") {
-      local $key, $val;
+      local $key;
+      local $val;
       foreach $key (keys(%{$content[$i]})) {
         push(@contentProcessed, join("=", urlEncode($key), urlEncode($content[$i]->{$key})));
       }
@@ -120,13 +121,13 @@ sub urlDecode {
 __END__
 =head1 NAME
 
-hey::heyPass - Interface with heyPass Centralized Authentication System
+Hey::heyPass - Interface with heyPass Centralized Authentication System
 
 =head1 SYNOPSIS
 
   # To send a user to login:
-  use hey::heyPass;
-  $heyPass = hey::heyPass->new($yourSiteId, $yourSiteKey);
+  use Hey::heyPass;
+  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
   $login = $heyPass->beginSession({
              successUrl => "http://$ENV{HTTP_HOST}/loginSuccess.cgi?sessionId=%s",
              failureUrl => "http://$ENV{HTTP_HOST}/loginFailure.cgi?sessionId=%s",
@@ -135,13 +136,13 @@ hey::heyPass - Interface with heyPass Centralized Authentication System
   print "Location: $login->{loginUrl}\n\n";
 
   # To logout the user:
-  use hey::heyPass;
-  $heyPass = hey::heyPass->new($yourSiteId, $yourSiteKey);
+  use Hey::heyPass;
+  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
   $heyPass->endSession($sessionId);
 
   # To retrieve the session data of the user:
-  use hey::heyPass;
-  $heyPass = hey::heyPass->new($yourSiteId, $yourSiteKey);
+  use Hey::heyPass;
+  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
   $session = $heyPass->getSession($sessionId);
   use Data::Dumper;
   print Dumper($session);
