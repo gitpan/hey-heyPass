@@ -9,3 +9,6 @@ Revision history for Perl extension Hey::heyPass.
 
 1.07  Tue Aug 16 00:14:34 2005
 	- changed from hey::heyPass to Hey::heyPass (capitalizing "Hey")
+
+1.09  Thu Aug 18 16:22:51 UTC 2005
+	- fixed t/1.t to test for Hey::heyPass instead of hey::heyPass.  Sorry!
