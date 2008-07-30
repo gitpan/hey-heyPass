@@ -1,6 +1,6 @@
 package Hey::heyPass;
 
-our $VERSION = 2.06;
+our $VERSION = 2.07;
 
 use Storable qw(freeze thaw);
 
@@ -570,6 +570,11 @@ this permission.  If you use "login_code", a URL will be provided that you can
 send the user to.  Otherwise, the user will be prompted next time they login.
 
 =over 4
+
+=item return_url [optional-ish]
+
+If you didn't set this when you created your $hp object, you are required to do
+it here.  If you did set it, this will override it for just this one request.
 
 =item login_code [required, without user]
 

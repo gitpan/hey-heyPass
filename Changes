@@ -1,5 +1,9 @@
 Revision history for Perl module Hey::heyPass
 
+2.07 Wed Jul 30 21:20:34 2008
+    - Fixed bad test.
+    - Added "return_url" documentation for "grant".
+
 2.06 Wed Jul 30 18:58:10 2008
     - More documentation formatting fixes.
 
