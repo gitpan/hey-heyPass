@@ -1,6 +1,6 @@
 package Hey::heyPass;
 
-our $VERSION = 2.05;
+our $VERSION = 2.06;
 
 use Storable qw(freeze thaw);
 
@@ -68,28 +68,35 @@ Hey::heyPass - Client for heyPass Centralized Authentication System
 
 =head1 DESCRIPTION
 
-heyPass is a centralized authentication system made for any web application that needs user authentication.
-The heyPass system is hosted, maintained, and managed by hey.nu Network Community Services and Megagram
-Managed Technical Services in a joint venture to help web application developers provide a safe, user
-privacy-controlled authentication and profile data sharing system.
+heyPass is a centralized authentication system made for any web application that
+needs user authentication.  The heyPass system is hosted, maintained, and
+managed by hey.nu Network Community Services and Megagram Managed Technical
+Services in a joint venture to help web application developers provide a safe,
+user privacy-controlled authentication and profile data sharing system.
 
-All data stored within heyPass by individual applications can be shared with other heyPass-powered
-applications based on the user's permission and the application's permission settings.  This system makes
-it easy for an application to store both public and private data for a user and share only permitted data
+All data stored within heyPass by individual applications can be shared with
+other heyPass-powered applications based on the user's permission and the
+application's permission settings.  This system makes it easy for an application
+to store both public and private data for a user and share only permitted data
 with other applications that have been given permission by the user.
 
-Through this system, no heyPass-powered applications have access to the user's login information, email
-address, or any other identifying data.  Upon successful login, the only piece of data that an application
-is given is a user UUID that identifies that user with that application.  Only after the application
-requests specific profile data and the user has given explicit permission via a web interface will an
-application be able to access additional data stored within heyPass.  This system ensure that a user's
-privacy is maintained at the levels that they prefer.  For example, a user is not required to provide
-an application their email address or identity information just to login.
+Through this system, no heyPass-powered applications have access to the user's
+login information, email address, or any other identifying data.  Upon
+successful login, the only piece of data that an application is given is a user
+UUID that identifies that user with that application.  Only after the
+application requests specific profile data and the user has given explicit
+permission via a web interface will an application be able to access additional
+data stored within heyPass.  This system ensure that a user's privacy is
+maintained at the levels that they prefer.  For example, a user is not required
+to provide an application their email address or identity information just to
+login.
 
-This system was originally designed as a central authentication system for hey.nu Network Official sites,
-but it is now being made available to the general public.  Any application developer or application owner
-may use the heyPass system for their applications.  Any heyPass user can create their own applications
-and any application developer can distribute their heyPass-powered applications to others.
+This system was originally designed as a central authentication system for
+hey.nu Network Official sites, but it is now being made available to the general
+public.  Any application developer or application owner may use the heyPass
+system for their applications.  Any heyPass user can create their own
+applications and any application developer can distribute their heyPass-powered
+applications to others.
 
 =head2 new
 
@@ -104,26 +111,32 @@ Creates the heyPass object to be used later on for requests.
 
 =item uuid [required]
 
-Your application's UUID.  This is assigned upon creation of your application at the heyPass website.  Your
-UUID is listed on the application detail screen.  This is not a secret.  In fact, you can freely give this
-out if you'd like other applications to potentially access your data (if *both* you and your users allow it).
+Your application's UUID.  This is assigned upon creation of your application at
+the heyPass website.  Your UUID is listed on the application detail screen.
+This is not a secret.  In fact, you can freely give this out if you'd like other
+applications to potentially access your data (if *both* you and your users allow
+it).
 
 =item key [required]
 
-Your application's password.  This is a secret!  Anyone with this password can do anything with your data
-that your application can.  You get to choose this value when you setup your new application in heyPass.
-It's best to keep this password long and complicated.  You can change it at any time at the heyPass website.
+Your application's password.  This is a secret!  Anyone with this password can
+do anything with your data that your application can.  You get to choose this
+value when you setup your new application in heyPass.  It's best to keep this
+password long and complicated.  You can change it at any time at the heyPass
+website.
 
 =item return_url [optional]
 
-This is the URL that heyPass will send the user to when the user has either successfully logged with heyPass
-or if the user hit the cancel button.  If you set it here, it becomes the default return_url for all requests.
-Otherwise, it can be set for any request that sends the user to heyPass.
+This is the URL that heyPass will send the user to when the user has either
+successfully logged with heyPass or if the user hit the cancel button.  If you
+set it here, it becomes the default return_url for all requests.  Otherwise, it
+can be set for any request that sends the user to heyPass.
 
 =item access_url [optional]
 
-It shouldn't ever be necessary to use this, but if you are in a special situation where the predefined
-heyPass API URL needs to be set to a different value, you'd do that with this.
+It shouldn't ever be necessary to use this, but if you are in a special
+situation where the predefined heyPass API URL needs to be set to a different
+value, you'd do that with this.
 
 =back
 
@@ -169,33 +182,36 @@ sub new
                                                     # (you're in charge of your own session system...)
   print "Status: 302\nLocation: $login->{url}\n\n";
 
-Sends a request to heyPass to start the login process for a non-authenticated user.  Returns
-the URL where you will send the user to login as well as the login_code that will be used later
-to check to see if the user is logged in, to get the logged-in user's UUID, and other things.
+Sends a request to heyPass to start the login process for a non-authenticated
+user.  Returns the URL where you will send the user to login as well as the
+login_code that will be used later to check to see if the user is logged in, to
+get the logged-in user's UUID, and other things.
 
-WARNING!  Do *not* use login_code as a session id for your application.  At any moment the
-login_code may need to change (the user logged out and you want them to log back in, etc)
-and this will mess up your sessions.  You should use your own session management system
-like L<CGI::Session|CGI::Session> or something like that.  Don't rely on heyPass to maintain your
-session ids!  That's not what login_code is for.
+WARNING!  Do *not* use login_code as a session id for your application.  At any
+moment the login_code may need to change (the user logged out and you want them
+to log back in, etc) and this will mess up your sessions.  You should use your
+own session management system like L<CGI::Session|CGI::Session> or something like
+that.  Don't rely on heyPass to maintain your session ids!  That's not what
+login_code is for.
 
 =over 4
 
 =item return_url [optional-ish]
 
-If you didn't set this when you created your $hp object, you are required to do it here.
-If you did set it, this will override it for just this one request.
+If you didn't set this when you created your $hp object, you are required to do
+it here.  If you did set it, this will override it for just this one request.
 
 =item attributes [optional]
 
-A hashref containing the attributes that you'd like to have access to.  The attribute
-is formatted "APP_UUID/ATTRIBUTE".  You need to know the UUID of the application that
-owns the attribute and the name of the attribute that you want access to.
+A hashref containing the attributes that you'd like to have access to.  The
+attribute is formatted "APP_UUID/ATTRIBUTE".  You need to know the UUID of the
+application that owns the attribute and the name of the attribute that you want
+access to.
 
-When the user logs in with heyPass, they will be prompted to grant access to these
-attributes to your application.  The user can override any of the settings that you
-provided (permission, expiration).  Depending on how the user answers, they may
-be asked everytime they login, once it expires, or never again.
+When the user logs in with heyPass, they will be prompted to grant access to
+these attributes to your application.  The user can override any of the settings
+that you provided (permission, expiration).  Depending on how the user answers,
+they may be asked everytime they login, once it expires, or never again.
 
 The attributes that you list here must have been permitted to be shared by the
 application that owns the data.  This means they have set either "read-only" or
@@ -258,18 +274,21 @@ not both at the same time.
 
 =item login_code [required, without user]
 
-If provided, the provided login_code will be logged out.  The user will be logged out of your application for
-the computer that the user is sitting at.  Any existing sessions for this user for your application at other
-computers will not be logged out.
+If provided, the provided login_code will be logged out.  The user will be
+logged out of your application for the computer that the user is sitting at.
+Any existing sessions for this user for your application at other computers will
+not be logged out.
 
 =item user [required, without login_code]
 
-This is the user's UUID.  If provided, the user will be logged out of your application at every computer
-that was used to log into your application.  This is considered a "global application logout".
+This is the user's UUID.  If provided, the user will be logged out of your
+application at every computer that was used to log into your application.  This
+is considered a "global application logout".
 
-FYI: If a user wants to do a true global logout (logout of all heyPass-powered apps for this user), they
-must do that through the heyPass website.  Your application can direct them there, but the user has to
-click the button to make it happen.
+FYI: If a user wants to do a true global logout (logout of all heyPass-powered
+apps for this user), they must do that through the heyPass website.  Your
+application can direct them there, but the user has to click the button to make
+it happen.
 
 =back
 
@@ -318,16 +337,17 @@ sub logout
   print "User's UUID is $user." if $user;
   die "User isn't logged in... login_code is invalid, expired, or whatever." unless $user;
 
-Get the logged in user's UUID.  This is the static identifier that lets your application know
-that this user is who they are.  This value never changes for each individual user.  You will
-use this value in your databases or wherever to match against each time this user logs in or
-wishes to perform an action.  According to your application, the user's UUID is their identity.
-You will use the user's UUID to perform other tasks, like writing to their attributes, logout,
-requesting attribute grants, and reading attributes.
+Get the logged in user's UUID.  This is the static identifier that lets your
+application know that this user is who they are.  This value never changes for
+each individual user.  You will use this value in your databases or wherever to
+match against each time this user logs in or wishes to perform an action.
+According to your application, the user's UUID is their identity.  You will use
+the user's UUID to perform other tasks, like writing to their attributes,
+logout, requesting attribute grants, and reading attributes.
 
-If $user is null, the login_code is not valid.  This means the user is not authenticated and
-should be treated as such.  Either the login_code was never authenticated, the authentication
-expired, or the user was logged out.
+If $user is null, the login_code is not valid.  This means the user is not
+authenticated and should be treated as such.  Either the login_code was never
+authenticated, the authentication expired, or the user was logged out.
 
 =over 4
 
@@ -383,24 +403,29 @@ sub user
     ],
   });
 
-Get the specified attributes from the user's profile.  For attributes in your application's namespace
-(starting with your app's UUID), you don't need permission from the user to get the data.  For any other
-namespace, you must have a valid, non-expired grant from the user.  You get a grant using "grant" or
-during the initial "login".  If you don't have a valid grant, your request for the denied attributes
-will be ignored and omitted from the response.  If the attribute or application UUID doesn't exist,
-that too will be ignored and omitted.  If you have a valid grant for a piece of data, but the data
-doesn't exist for this user (it was never written to), it'll be omitted from the response.
+Get the specified attributes from the user's profile.  For attributes in your
+application's namespace (starting with your app's UUID), you don't need
+permission from the user to get the data.  For any other namespace, you must
+have a valid, non-expired grant from the user.  You get a grant using "grant" or
+during the initial "login".  If you don't have a valid grant, your request for
+the denied attributes will be ignored and omitted from the response.  If the
+attribute or application UUID doesn't exist, that too will be ignored and
+omitted.  If you have a valid grant for a piece of data, but the data doesn't
+exist for this user (it was never written to), it'll be omitted from the
+response.
 
 =over 4
 
 =item user [required]
 
-The user's UUID that you'd like to get the information from.  For any data that you have a
-valid grant for, the user doesn't need to be present to request the data.
+The user's UUID that you'd like to get the information from.  For any data that
+you have a valid grant for, the user doesn't need to be present to request the
+data.
 
 =item attributes [required]
 
-An array reference containing a list of attributes to get from the user's heyPass profile.
+An array reference containing a list of attributes to get from the user's
+heyPass profile.
 
 =back
 
@@ -450,16 +475,18 @@ sub read
     },
   });
 
-Write to the user's profile attributes.  If your application owns the attributes, you don't need a grant.
-Otherwise, you need a read-write grant to the attributes.  Any attributes that you don't have read-write
-access to will be ignored.
+Write to the user's profile attributes.  If your application owns the
+attributes, you don't need a grant.  Otherwise, you need a read-write grant to
+the attributes.  Any attributes that you don't have read-write access to will be
+ignored.
 
 =over 4
 
 =item user [required]
 
-The user's UUID that you'd like to write the information to.  For any data that you have a
-valid read-write grant for, the user doesn't need to be present to write the data.
+The user's UUID that you'd like to write the information to.  For any data that
+you have a valid read-write grant for, the user doesn't need to be present to
+write the data.
 
 =item attributes [required]
 
@@ -536,11 +563,11 @@ sub write
   });
   # Doesn't provide a URL.  Instead, the user will be prompted at next login.
 
-Request a grant for attributes for a user.  The application that owns the attributes being
-requested must have specified that the attributes are either read-only or read-write.
-The user will need to visit the heyPass site to grant this permission.  If you use
-"login_code", a URL will be provided that you can send the user to.  Otherwise, the
-user will be prompted next time they login.
+Request a grant for attributes for a user.  The application that owns the
+attributes being requested must have specified that the attributes are either
+read-only or read-write.  The user will need to visit the heyPass site to grant
+this permission.  If you use "login_code", a URL will be provided that you can
+send the user to.  Otherwise, the user will be prompted next time they login.
 
 =over 4
 
@@ -552,22 +579,23 @@ be present to use "login_code" for this.
 
 =item user [required, without login_code]
 
-Provide the user's UUID instead of login_code to request permission to attributes.
-In doing so, the user doesn't need to be present when you make this request.  The
-next time the user logs into your application, they'll be asked to give permission.
-You can use this method for user-not-present batch requests.
+Provide the user's UUID instead of login_code to request permission to
+attributes.  In doing so, the user doesn't need to be present when you make this
+request.  The next time the user logs into your application, they'll be asked to
+give permission.  You can use this method for user-not-present batch requests.
 
 =item attributes [required]
 
-A hashref containing the attributes that you'd like to have access to.  The attribute
-is formatted "APP_UUID/ATTRIBUTE".  You need to know the UUID of the application that
-owns the attribute and the name of the attribute that you want access to.
+A hashref containing the attributes that you'd like to have access to.  The
+attribute is formatted "APP_UUID/ATTRIBUTE".  You need to know the UUID of the
+application that owns the attribute and the name of the attribute that you want
+access to.
 
-When the user logs in with heyPass or is sent to heyPass with the returned URL, they
-will be prompted to grant access to these attributes to your application.  The user
-can override any of the settings that you provided (permission, expiration).
-Depending on how the user answers, they may be asked everytime they login, once it
-expires, or never again.
+When the user logs in with heyPass or is sent to heyPass with the returned URL,
+they will be prompted to grant access to these attributes to your application.
+The user can override any of the settings that you provided (permission,
+expiration).  Depending on how the user answers, they may be asked everytime
+they login, once it expires, or never again.
 
 The attributes that you list here must have been permitted to be shared by the
 application that owns the data.  This means they have set either "read-only" or
@@ -675,14 +703,16 @@ sub attrlist
     },
   });
 
-Allows your application to programmatically create new attributes within heyPass.
+Allows your application to programmatically create new attributes within
+heyPass.
 
 =over 4
 
 =item attributes
 
-A hash reference containing the attribute, title, description, and permission for the attributes
-that you'd like to create.  If the attribute already exists, it'll be ignored from the request.
+A hash reference containing the attribute, title, description, and permission
+for the attributes that you'd like to create.  If the attribute already exists,
+it'll be ignored from the request.
 
 =back
 
@@ -744,8 +774,9 @@ Alter an existing attribute for your application within heyPass.
 
 =item attributes
 
-A hash reference containing the attribute, title, description, and permission for the attributes
-that you'd like to update.  If the attribute doesn't exist, it'll be ignored from the request.
+A hash reference containing the attribute, title, description, and permission
+for the attributes that you'd like to update.  If the attribute doesn't exist,
+it'll be ignored from the request.
 
 =back
 
@@ -795,15 +826,16 @@ sub attrupdate
 
 Delete an attribute for your application from heyPass.
 
-WARNING!  If you do this, all data stored in that attribute for every heyPass user will be
-permanently deleted.  There is no going back!  There is no undo!  Make sure you really mean it.
+WARNING!  If you do this, all data stored in that attribute for every heyPass
+user will be permanently deleted.  There is no going back!  There is no undo!
+Make sure you really mean it.
 
 =over 4
 
 =item attributes
 
-An array reference containing a list of attributes to delete.  Any attributes that don't exist
-will be ignored from the request.
+An array reference containing a list of attributes to delete.  Any attributes
+that don't exist will be ignored from the request.
 
 =back
 
