@@ -1,6 +1,6 @@
 package Hey::heyPass;
 
-our $VERSION = 2.04;
+our $VERSION = 2.05;
 
 use Storable qw(freeze thaw);
 
@@ -100,28 +100,32 @@ and any application developer can distribute their heyPass-powered applications 
 
 Creates the heyPass object to be used later on for requests.
 
-=head3 uuid [required]
+=over 4
+
+=item uuid [required]
 
 Your application's UUID.  This is assigned upon creation of your application at the heyPass website.  Your
 UUID is listed on the application detail screen.  This is not a secret.  In fact, you can freely give this
 out if you'd like other applications to potentially access your data (if *both* you and your users allow it).
 
-=head3 key [required]
+=item key [required]
 
 Your application's password.  This is a secret!  Anyone with this password can do anything with your data
 that your application can.  You get to choose this value when you setup your new application in heyPass.
 It's best to keep this password long and complicated.  You can change it at any time at the heyPass website.
 
-=head3 return_url [optional]
+=item return_url [optional]
 
 This is the URL that heyPass will send the user to when the user has either successfully logged with heyPass
 or if the user hit the cancel button.  If you set it here, it becomes the default return_url for all requests.
 Otherwise, it can be set for any request that sends the user to heyPass.
 
-=head3 access_url [optional]
+=item access_url [optional]
 
 It shouldn't ever be necessary to use this, but if you are in a special situation where the predefined
 heyPass API URL needs to be set to a different value, you'd do that with this.
+
+=back
 
 =cut
 
@@ -175,12 +179,14 @@ and this will mess up your sessions.  You should use your own session management
 like L<CGI::Session|CGI::Session> or something like that.  Don't rely on heyPass to maintain your
 session ids!  That's not what login_code is for.
 
-=head3 return_url [optional-ish]
+=over 4
+
+=item return_url [optional-ish]
 
 If you didn't set this when you created your $hp object, you are required to do it here.
 If you did set it, this will override it for just this one request.
 
-=head3 attributes [optional]
+=item attributes [optional]
 
 A hashref containing the attributes that you'd like to have access to.  The attribute
 is formatted "APP_UUID/ATTRIBUTE".  You need to know the UUID of the application that
@@ -194,6 +200,8 @@ be asked everytime they login, once it expires, or never again.
 The attributes that you list here must have been permitted to be shared by the
 application that owns the data.  This means they have set either "read-only" or
 "read-write" access to the data.
+
+=back
 
 =cut
 
@@ -246,13 +254,15 @@ Performs a logout action.  Either logout just this single login_code (leaving al
 or logout every session for this user for your app.  You'll use either "login_code" or "user", but
 not both at the same time.
 
-=head3 login_code [required, without user]
+=over 4
+
+=item login_code [required, without user]
 
 If provided, the provided login_code will be logged out.  The user will be logged out of your application for
 the computer that the user is sitting at.  Any existing sessions for this user for your application at other
 computers will not be logged out.
 
-=head3 user [required, without login_code]
+=item user [required, without login_code]
 
 This is the user's UUID.  If provided, the user will be logged out of your application at every computer
 that was used to log into your application.  This is considered a "global application logout".
@@ -260,6 +270,8 @@ that was used to log into your application.  This is considered a "global applic
 FYI: If a user wants to do a true global logout (logout of all heyPass-powered apps for this user), they
 must do that through the heyPass website.  Your application can direct them there, but the user has to
 click the button to make it happen.
+
+=back
 
 =cut
 
@@ -317,9 +329,13 @@ If $user is null, the login_code is not valid.  This means the user is not authe
 should be treated as such.  Either the login_code was never authenticated, the authentication
 expired, or the user was logged out.
 
-=head3 login_code [required]
+=over 4
+
+=item login_code [required]
 
 Provide the login_code that you originally got from login.
+
+=back
 
 =cut
 
@@ -375,14 +391,18 @@ will be ignored and omitted from the response.  If the attribute or application 
 that too will be ignored and omitted.  If you have a valid grant for a piece of data, but the data
 doesn't exist for this user (it was never written to), it'll be omitted from the response.
 
-=head3 user [required]
+=over 4
+
+=item user [required]
 
 The user's UUID that you'd like to get the information from.  For any data that you have a
 valid grant for, the user doesn't need to be present to request the data.
 
-=head3 attributes [required]
+=item attributes [required]
 
 An array reference containing a list of attributes to get from the user's heyPass profile.
+
+=back
 
 =cut
 
@@ -434,14 +454,18 @@ Write to the user's profile attributes.  If your application owns the attributes
 Otherwise, you need a read-write grant to the attributes.  Any attributes that you don't have read-write
 access to will be ignored.
 
-=head3 user [required]
+=over 4
+
+=item user [required]
 
 The user's UUID that you'd like to write the information to.  For any data that you have a
 valid read-write grant for, the user doesn't need to be present to write the data.
 
-=head3 attributes [required]
+=item attributes [required]
 
 A hash reference containing the attributes to be written and their values.
+
+=back
 
 =cut
 
@@ -518,20 +542,22 @@ The user will need to visit the heyPass site to grant this permission.  If you u
 "login_code", a URL will be provided that you can send the user to.  Otherwise, the
 user will be prompted next time they login.
 
-=head3 login_code [required, without user]
+=over 4
+
+=item login_code [required, without user]
 
 Provide the login_code for the current user session.  Returned will be the URL
 that the user must visit to grant the requested permissions.  The user must
 be present to use "login_code" for this.
 
-=head3 user [required, without login_code]
+=item user [required, without login_code]
 
 Provide the user's UUID instead of login_code to request permission to attributes.
 In doing so, the user doesn't need to be present when you make this request.  The
 next time the user logs into your application, they'll be asked to give permission.
 You can use this method for user-not-present batch requests.
 
-=head3 attributes [required]
+=item attributes [required]
 
 A hashref containing the attributes that you'd like to have access to.  The attribute
 is formatted "APP_UUID/ATTRIBUTE".  You need to know the UUID of the application that
@@ -546,6 +572,8 @@ expires, or never again.
 The attributes that you list here must have been permitted to be shared by the
 application that owns the data.  This means they have set either "read-only" or
 "read-write" access to the data.
+
+=back
 
 =cut
 
@@ -649,10 +677,14 @@ sub attrlist
 
 Allows your application to programmatically create new attributes within heyPass.
 
-=head3 attributes
+=over 4
+
+=item attributes
 
 A hash reference containing the attribute, title, description, and permission for the attributes
 that you'd like to create.  If the attribute already exists, it'll be ignored from the request.
+
+=back
 
 =cut
 
@@ -708,10 +740,14 @@ sub attrcreate
 
 Alter an existing attribute for your application within heyPass.
 
-=head3 attributes
+=over 4
+
+=item attributes
 
 A hash reference containing the attribute, title, description, and permission for the attributes
 that you'd like to update.  If the attribute doesn't exist, it'll be ignored from the request.
+
+=back
 
 =cut
 
@@ -762,10 +798,14 @@ Delete an attribute for your application from heyPass.
 WARNING!  If you do this, all data stored in that attribute for every heyPass user will be
 permanently deleted.  There is no going back!  There is no undo!  Make sure you really mean it.
 
-=head3 attributes
+=over 4
+
+=item attributes
 
 An array reference containing a list of attributes to delete.  Any attributes that don't exist
 will be ignored from the request.
+
+=back
 
 =cut
 
