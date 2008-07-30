@@ -1,70 +1,50 @@
-Hey/heyPass version 1.08
-========================
-
-Hey::heyPass - Interface with heyPass Centralized Authentication System
-
-INSTALLATION
-
-To install this module type the following:
-
-   perl Makefile.PL
-   make
-   make test
-   make install
-
-SYNOPSIS
-
-  # To send a user to login:
-  use Hey::heyPass;
-  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
-  $login = $heyPass->beginSession({
-             successUrl => "http://$ENV{HTTP_HOST}/loginSuccess.cgi?sessionId=%s",
-             failureUrl => "http://$ENV{HTTP_HOST}/loginFailure.cgi?sessionId=%s",
-             cancelUrl => "http://$ENV{HTTP_HOST}/loginCancel.cgi?sessionId=%s"
-           });
-  print "Location: $login->{loginUrl}\n\n";
-
-  # To logout the user:
-  use Hey::heyPass;
-  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
-  $heyPass->endSession($sessionId);
-
-  # To retrieve the session data of the user:
-  use Hey::heyPass;
-  $heyPass = Hey::heyPass->new($yourSiteId, $yourSiteKey);
-  $session = $heyPass->getSession($sessionId);
-  use Data::Dumper;
-  print Dumper($session);
+NAME
+    Hey::heyPass - Client for heyPass Centralized Authentication System
 
 DESCRIPTION
+    heyPass is a centralized authentication system made for any web
+    application that needs user authentication. The heyPass system is
+    hosted, maintained, and managed by hey.nu Network Community Services and
+    Megagram Managed Technical Services in a joint venture to help web
+    application developers provide a safe, user privacy-controlled
+    authentication and profile data sharing system.
 
-Documentation: https://heypass.hey.nu/interface/guestdocs/
+    All data stored within heyPass by individual applications can be shared
+    with other heyPass-powered applications based on the user's permission
+    and the application's permission settings. This system makes it easy for
+    an application to store both public and private data for a user and
+    share only permitted data with other applications that have been given
+    permission by the user.
 
-If you want to have a heyPass siteId/siteKey for your application, please check to see if there is an automated way to do this (not yet at time of writing).  If there still isn't, contact me (Dusty Wilson <cpan-heypass@dusty.hey.nu>) and I will get you started.
+    Through this system, no heyPass-powered applications have access to the
+    user's login information, email address, or any other identifying data.
+    Upon successful login, the only piece of data that an application is
+    given is a user UUID that identifies that user with that application.
+    Only after the application requests specific profile data and the user
+    has given explicit permission via a web interface will an application be
+    able to access additional data stored within heyPass. This system ensure
+    that a user's privacy is maintained at the levels that they prefer. For
+    example, a user is not required to provide an application their email
+    address or identity information just to login.
 
-DEPENDENCIES
-
-LWP::UserAgent
-XML::Simple
-Crypt::SSLeay
-
-THANKS
-
-A big thank you goes out to all of our members at hey.nu Network who have helped us test heyPass throughly.  A special thank you goes to ssba for his testing and early adoption of heyPass in his projects.  And of course, thank you to the authors and contributors of LWP, XML::Simple, Crypt::SSLeay, and all dependent projects for making this module so easy to make. If it weren't for them, I would have had to actually write real code to have done this.  Thanks!
-
-SEE ALSO
-
-Documentation: https://heypass.hey.nu/interface/guestdocs/
-
-heyPass Site: https://heypass.hey.nu/ (doubtfully useful in its current state)
+    This system was originally designed as a central authentication system
+    for hey.nu Network Official sites, but it is now being made available to
+    the general public. Any application developer or application owner may
+    use the heyPass system for their applications. Any heyPass user can
+    create their own applications and any application developer can
+    distribute their heyPass-powered applications to others.
 
 AUTHOR
+        Dusty Wilson
+        hey.nu Network Community Services
+        Megagram Managed Technical Services
+        cpan-hey-heypass@dusty.hey.nu
+        http://heypass2.hey.nu/
 
-Dusty Wilson, <cpan@dusty.hey.nu>
+COPYRIGHT
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
 
-COPYRIGHT AND LICENSE
+    The full text of the license can be found in the LICENSE file included
+    with this module.
 
-Copyright 2005 by Dusty Wilson, hey.nu Network Community Services
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.

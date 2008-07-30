@@ -1,14 +1,6 @@
-Revision history for Perl extension Hey::heyPass.
+Revision history for Perl module Hey::heyPass
 
-1.05  Tue Aug  9 00:57:32 2005
-	- original version; created by h2xs 1.22 with options
-		-AX -n hey::heyPass
+2.04 Wed Jul 30 13:19:45 2008
+    - heyPass2 Release
 
-1.06  Tue Aug 16 00:04:34 2005
-	- fixed error on line 35, fixed missing parens around arguments
 
-1.07  Tue Aug 16 00:14:34 2005
-	- changed from hey::heyPass to Hey::heyPass (capitalizing "Hey")
-
-1.09  Thu Aug 18 16:22:51 UTC 2005
-	- fixed t/1.t to test for Hey::heyPass instead of hey::heyPass.  Sorry!
