@@ -1,6 +1,6 @@
 package Hey::heyPass;
 
-our $VERSION = 2.07;
+our $VERSION = 2.08;
 
 use Storable qw(freeze thaw);
 
@@ -151,11 +151,11 @@ sub new
   $self->{uuid} = $args->{uuid} or die(qq(Hey::heyPass requires UUID.\n));
   $self->{key} = $args->{key} or die(qq(Hey::heyPass requires KEY.\n));
   $self->{return_url} = $args->{return_url};
-  $self->{access_url} = $args->{access_url} || 'https://heypass2.hey.nu/api/';
+  $self->{access_url} = $args->{access_url} || 'https://heypass.megagram.com/api/';
 
   use LWP::UserAgent;
   $self->{_ua} = LWP::UserAgent->new();
-  $self->{_ua}->agent('Hey::heyPass/'.$VERSION.' ('.$self->{uuid}.'; Perl '.join('.', map({ord} split('', $^V))).'; https://heypass2.hey.nu/)');
+  $self->{_ua}->agent('Hey::heyPass/'.$VERSION.' ('.$self->{uuid}.'; Perl '.join('.', map({ord} split('', $^V))).'; https://heypass.megagram.com/)');
 
   return bless($self, $class);
 }

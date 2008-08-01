@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Hey-heyPass
-version:             2.07
+version:             2.08
 abstract:            Client for heyPass Centralized Authentication System
 license:             ~
 author:              
