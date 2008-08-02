@@ -1,6 +1,6 @@
 package Hey::heyPass;
 
-our $VERSION = 2.10;
+our $VERSION = 2.11;
 
 use Storable qw(freeze thaw);
 

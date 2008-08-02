@@ -10,5 +10,7 @@ WriteMakefile(
     ABSTRACT     => 'Client for heyPass Centralized Authentication System',
     PREREQ_PM    => {
                      'Test::Simple' => 0.44,
+                     'LWP::UserAgent' => 2.0,
+                     'Storable' => 2.15,
                     },
 );

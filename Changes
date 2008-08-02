@@ -1,5 +1,14 @@
 Revision history for Perl module Hey::heyPass
 
+2.11
+    - Added missing changelog entry for 2.10.
+
+2.10 Fri Aug 2 23:31:40 2008
+    - Enhanced documentation.
+    - Documentation bug fix (comment in code sample in "grant" was
+      incorrect)
+    - Added THANKS section.
+
 2.09 Fri Aug 2 02:47:10 2008
     - Enhanced documentation.
     - Documentation bug fix (comment in code sample in "attrupdate" was
