@@ -1,6 +1,6 @@
 package Hey::heyPass;
 
-our $VERSION = 2.08;
+our $VERSION = 2.09;
 
 use Storable qw(freeze thaw);
 
@@ -97,6 +97,8 @@ public.  Any application developer or application owner may use the heyPass
 system for their applications.  Any heyPass user can create their own
 applications and any application developer can distribute their heyPass-powered
 applications to others.
+
+=head1 INTERFACE
 
 =head2 new
 
@@ -708,8 +710,8 @@ sub attrlist
     },
   });
 
-Allows your application to programmatically create new attributes within
-heyPass.
+Programmatically create new attributes within heyPass in your application's
+namespace.  This is akin to adding a column in a database table.
 
 =over 4
 
@@ -758,7 +760,7 @@ sub attrcreate
 =head2 attrupdate
 
   $hp->attrupdate({ # update attributes, doesn't return anything
-    attributes => { # this is what we update.  errors are simply ignored.  omitted fields will not be left alone.
+    attributes => { # this is what we update.  errors are simply ignored.  omitted fields will be left alone.
       'testcreate_1' => {
         title => 'Test Updated Field #1',
         description => 'This field was updated programmatically via the API.',
@@ -773,7 +775,10 @@ sub attrcreate
     },
   });
 
-Alter an existing attribute for your application within heyPass.
+Alter an existing attribute for your application within heyPass.  This is used
+to make changes to the permission, title, and description of the attribute.
+This doesn't modify the value of the attribute; it modifies the definition of
+the attribute.  If you want to modify values, you would use "write" instead.
 
 =over 4
 
@@ -781,7 +786,9 @@ Alter an existing attribute for your application within heyPass.
 
 A hash reference containing the attribute, title, description, and permission
 for the attributes that you'd like to update.  If the attribute doesn't exist,
-it'll be ignored from the request.
+it'll be ignored from the request.  Any fields you omit from this hash will
+be left untouched.  For example, in the code sample above, the title for
+"testcreate_2" will not be modified since it wasn't supplied in the hash.
 
 =back
 
@@ -829,7 +836,14 @@ sub attrupdate
     ],
   });
 
-Delete an attribute for your application from heyPass.
+Delete an attribute for your application from heyPass.  This deletes the
+definition of an attribute.  This means that it will remove the attribute from
+every heyPass user profile and from your application's data store on heyPass.
+This is akin to removing a column from a database table.
+
+If you just want to delete a value from an attribute for a single user, use
+"write" to store a blank value.  In the future, we may implement a "delete"
+API function.
 
 WARNING!  If you do this, all data stored in that attribute for every heyPass
 user will be permanently deleted.  There is no going back!  There is no undo!
@@ -878,13 +892,24 @@ sub attrdelete
 
 =cut
 
+=head1 TODO
+
+=over 4
+
+=item delete
+
+Add a delete API function to delete an attribute from an individual heyPass
+user's profile.  This isn't the same as "attrdelete" which deletes the attribute
+from the entire application.
+
+=back
+
 =head1 AUTHOR
 
     Dusty Wilson
-    hey.nu Network Community Services
     Megagram Managed Technical Services
-    cpan-hey-heypass@dusty.hey.nu
-    http://heypass2.hey.nu/
+    hey.nu Network Community Services
+    http://heypass.megagram.com/
 
 =head1 COPYRIGHT
 

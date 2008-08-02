@@ -1,5 +1,14 @@
 Revision history for Perl module Hey::heyPass
 
+2.09 Fri Aug 2 02:47:10 2008
+    - Enhanced documentation.
+    - Documentation bug fix (comment in code sample in "attrupdate" was
+      incorrect)
+    - Added missing changelog entry for 2.08.
+
+2.08 Fri Aug 1 22:38:54 2008
+    - Changed built-in API URL to https://heypass.megagram.com/API/.
+
 2.07 Wed Jul 30 21:20:34 2008
     - Fixed bad test.
     - Added "return_url" documentation for "grant".
@@ -11,4 +20,4 @@ Revision history for Perl module Hey::heyPass
     - Documentation formatting fixes.
 
 2.04 Wed Jul 30 13:19:45 2008
-    - heyPass2 Release
+    - heyPass2 Release on CPAN
