@@ -1,6 +1,6 @@
 package Hey::heyPass;
 
-our $VERSION = 2.09;
+our $VERSION = 2.10;
 
 use Storable qw(freeze thaw);
 
@@ -549,7 +549,7 @@ sub write
   });
   print "Status: 302\nLocation: $grant->{url}\n\n" if $grant->{url}; # sends the user to heyPass to grant permission
 
-  # ask for new grants, this method is used when the user is NOT present and/or the login_code is valid
+  # ask for new grants, this method is used when the user is NOT present and/or the login_code is invalid
   my $grant = $hp->grant({
     user => $user,
     attributes => {
@@ -715,7 +715,7 @@ namespace.  This is akin to adding a column in a database table.
 
 =over 4
 
-=item attributes
+=item attributes [required]
 
 A hash reference containing the attribute, title, description, and permission
 for the attributes that you'd like to create.  If the attribute already exists,
@@ -782,7 +782,7 @@ the attribute.  If you want to modify values, you would use "write" instead.
 
 =over 4
 
-=item attributes
+=item attributes [required]
 
 A hash reference containing the attribute, title, description, and permission
 for the attributes that you'd like to update.  If the attribute doesn't exist,
@@ -851,7 +851,7 @@ Make sure you really mean it.
 
 =over 4
 
-=item attributes
+=item attributes [required]
 
 An array reference containing a list of attributes to delete.  Any attributes
 that don't exist will be ignored from the request.
@@ -903,6 +903,21 @@ user's profile.  This isn't the same as "attrdelete" which deletes the attribute
 from the entire application.
 
 =back
+
+=head1 THANKS
+
+Thanks to Andrew Orner for being our very first guinea pig.  He implemented
+heyPass 1 in his pureBB bulletin board system.  Now renamed heyBoard, he is
+implementing heyPass 2 to take advantage of the enhanced profile storage
+features.  heyPass wouldn't be where it is today without his support.
+
+Thanks to Aditya Gaddam for writing the PHP and Ruby versions of this module.
+His work will help ensure PHP and Ruby developers get to use heyPass for their
+own applications.  We all appreciate your effort.
+
+Thanks to the hey.nu Network community for putting up with heyPass 1 while
+heyPass 2 was in development.  Thanks for testing it out, putting up with the
+bugs, and giving your valuable feedback.
 
 =head1 AUTHOR
 
